@@ -1,5 +1,5 @@
 blueprint:
-  name: Actions for 6-Button Homematic(IP) device
+  name: Actions for 6-Button Homematic(IP) device (extended)
   description:
     Based on https://github.com/SukramJ/custom_homematic/blob/devel/blueprints/automation/homematicip_local-actions-for-6-button.yaml
     When a button is pressed, the defined actions will be executed.
