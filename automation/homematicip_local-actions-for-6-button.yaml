@@ -1,0 +1,266 @@
+blueprint:
+  name: Actions for 6-Button Homematic(IP) device
+  description:
+    Based on https://github.com/SukramJ/custom_homematic/blob/devel/blueprints/automation/homematicip_local-actions-for-6-button.yaml
+    When a button is pressed, the defined actions will be executed.
+    Tested with HmIP-WRC6. Should work with other device too.
+    v2022-10-28
+  domain: automation
+  source_url: https://github.com/yawor/ha_blueprints/blob/main/automation/homematicip_local-actions-for-6-button.yaml
+  input:
+    remote:
+      name: 6-Button Device
+      description: Please select a 6-Button device of your Homematic(IP) Local integration.
+      selector:
+        device:
+          integration: homematicip_local
+    action_left_top_short:
+      name: Action
+      description: Left-Top-Button, Short Press
+      default: []
+      selector:
+        action: {}
+    action_left_top_long:
+      name: Action
+      description: Left-Top-Button, Long Press
+      default: []
+      selector:
+        action: {}
+    action_left_top_long_hold:
+      name: Action
+      description: Left-Top-Button, On Hold
+      default: []
+      selector:
+        action: {}
+    action_left_top_long_release:
+      name: Action
+      description: Left-Top-Button, Long Press Release
+      default: []
+      selector:
+        action: {}
+    action_right_top_short:
+      name: Action
+      description: Right-Top-Button, Short Press
+      default: []
+      selector:
+        action: {}
+    action_right_top_long:
+      name: Action
+      description: Right-Top-Button, Long Press
+      default: []
+      selector:
+        action: {}
+    action_right_top_long_hold:
+      name: Action
+      description: Right-Top-Button, On Hold
+      default: []
+      selector:
+        action: {}
+    action_right_top_long_release:
+      name: Action
+      description: Right-Top-Button, Long Press Release
+      default: []
+      selector:
+        action: {}
+    action_left_middle_short:
+      name: Action
+      description: Left-Middle-Button, Short Press
+      default: []
+      selector:
+        action: {}
+    action_left_middle_long:
+      name: Action
+      description: Left-Middle-Button, Long Press
+      default: []
+      selector:
+        action: {}
+    action_left_middle_long_hold:
+      name: Action
+      description: Left-Middle-Button, On Hold
+      default: []
+      selector:
+        action: {}
+    action_left_middle_long_release:
+      name: Action
+      description: Left-Middle-Button, Long Press Release
+      default: []
+      selector:
+        action: {}
+    action_right_middle_short:
+      name: Action
+      description: Right-Middle-Button, Short Press
+      default: []
+      selector:
+        action: {}
+    action_right_middle_long:
+      name: Action
+      description: Right-Middle-Button, Long Press
+      default: []
+      selector:
+        action: {}
+    action_right_middle_long_hold:
+      name: Action
+      description: Right-Middle-Button, On Hold
+      default: []
+      selector:
+        action: {}
+    action_right_middle_long_release:
+      name: Action
+      description: Right-Middle-Button, Long Press Release
+      default: []
+      selector:
+        action: {}
+    action_left_bottom_short:
+      name: Action
+      description: Left-Bottom-Button, Short Press
+      default: []
+      selector:
+        action: {}
+    action_left_bottom_long:
+      name: Action
+      description: Left-Bottom-Button, Long Press
+      default: []
+      selector:
+        action: {}
+    action_left_bottom_long_hold:
+      name: Action
+      description: Left-Bottom-Button, On Hold
+      default: []
+      selector:
+        action: {}
+    action_left_bottom_long_release:
+      name: Action
+      description: Left-Bottom-Button, Long Press Release
+      default: []
+      selector:
+        action: {}
+    action_right_bottom_short:
+      name: Action
+      description: Right-Bottom-Button, Short Press
+      default: []
+      selector:
+        action: {}
+    action_right_bottom_long:
+      name: Action
+      description: Right-Bottom-Button, Long Press
+      default: []
+      selector:
+        action: {}
+    action_right_bottom_long_hold:
+      name: Action
+      description: Right-Bottom-Button, On Hold
+      default: []
+      selector:
+        action: {}
+    action_right_bottom_long_release:
+      name: Action
+      description: Right-Bottom-Button, Long Press Release
+      default: []
+      selector:
+        action: {}
+trigger:
+  - platform: event
+    event_type: homematic.keypress
+    event_data:
+      device_id: !input "remote"
+condition: []
+action:
+  - choose:
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_short' and trigger.event.data.subtype  == 1 }}"
+        sequence: !input "action_left_top_short"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long_start' and trigger.event.data.subtype  == 1 }}"
+        sequence: !input "action_left_top_long"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long' and trigger.event.data.subtype  == 1 }}"
+        sequence: !input "action_left_top_long_hold"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long_release' and trigger.event.data.subtype  == 1 }}"
+        sequence: !input "action_left_top_long_release"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_short' and trigger.event.data.subtype  == 2 }}"
+        sequence: !input "action_right_top_short"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long_start' and trigger.event.data.subtype  == 2 }}"
+        sequence: !input "action_right_top_long"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long' and trigger.event.data.subtype  == 2 }}"
+        sequence: !input "action_right_top_long_hold"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long_release' and trigger.event.data.subtype  == 2 }}"
+        sequence: !input "action_right_top_long_release"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_short' and trigger.event.data.subtype  == 3 }}"
+        sequence: !input "action_left_middle_short"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long_start' and trigger.event.data.subtype  == 3 }}"
+        sequence: !input "action_left_middle_long"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long' and trigger.event.data.subtype  == 3 }}"
+        sequence: !input "action_left_middle_long_hold"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long_release' and trigger.event.data.subtype  == 3 }}"
+        sequence: !input "action_left_middle_long_release"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_short' and trigger.event.data.subtype  == 4 }}"
+        sequence: !input "action_right_middle_short"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long_start' and trigger.event.data.subtype  == 4 }}"
+        sequence: !input "action_right_middle_long"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long' and trigger.event.data.subtype  == 4 }}"
+        sequence: !input "action_right_middle_long_hold"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long_release' and trigger.event.data.subtype  == 4 }}"
+        sequence: !input "action_right_middle_long_release"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_short' and trigger.event.data.subtype  == 5 }}"
+        sequence: !input "action_left_bottom_short"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long_start' and trigger.event.data.subtype  == 5 }}"
+        sequence: !input "action_left_bottom_long"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long' and trigger.event.data.subtype  == 5 }}"
+        sequence: !input "action_left_bottom_long_hold"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long_release' and trigger.event.data.subtype  == 5 }}"
+        sequence: !input "action_left_bottom_long_release"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_short' and trigger.event.data.subtype  == 6 }}"
+        sequence: !input "action_right_bottom_short"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long_start' and trigger.event.data.subtype  == 6 }}"
+        sequence: !input "action_right_bottom_long"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long' and trigger.event.data.subtype  == 6 }}"
+        sequence: !input "action_right_bottom_long_hold"
+      - conditions:
+          - condition: template
+            value_template: "{{ trigger.event.data.type  == 'press_long_release' and trigger.event.data.subtype  == 6 }}"
+        sequence: !input "action_right_bottom_long_release"
+mode: parallel
+max: 10
